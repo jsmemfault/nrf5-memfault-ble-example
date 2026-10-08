@@ -1,0 +1,40 @@
+// Application metrics. Simulated values are marked (simulated).
+//
+// Heartbeat metrics are aggregated over MEMFAULT_METRICS_HEARTBEAT_INTERVAL_SECS and drained
+// with every other Memfault chunk during the next Diagnostics Control Point sync.
+//
+// Built-ins enabled in memfault_platform_config.h add: battery_soc_pct / battery_soc_pct_drop /
+// battery_discharge_duration_ms, sync_successful / sync_failure, sync_memfault_successful /
+// sync_memfault_failure, connectivity_connected_time_ms, uptime_s, and the bt_conn session.
+
+// Battery: real VDD reading via SAADC (stands in for a battery ADC)
+MEMFAULT_METRICS_KEY_DEFINE_WITH_RANGE(battery_mv, kMemfaultMetricType_Unsigned, 0, 4500)
+
+// Accelerometer motion level (simulated): time at each level per heartbeat
+MEMFAULT_METRICS_KEY_DEFINE(motion_low_time_ms, kMemfaultMetricType_Timer)
+MEMFAULT_METRICS_KEY_DEFINE(motion_high_time_ms, kMemfaultMetricType_Timer)
+MEMFAULT_METRICS_KEY_DEFINE(motion_idle_time_ms, kMemfaultMetricType_Timer)
+
+// Sensor acquisition health (simulated; failure rate depends on motion level)
+MEMFAULT_METRICS_KEY_DEFINE(sensor_acq_attempts, kMemfaultMetricType_Unsigned)
+MEMFAULT_METRICS_KEY_DEFINE(sensor_acq_failures, kMemfaultMetricType_Unsigned)
+MEMFAULT_METRICS_KEY_DEFINE(sensor_acq_skipped_idle, kMemfaultMetricType_Unsigned)
+
+// External SPI flash fill level (simulated)
+MEMFAULT_METRICS_KEY_DEFINE_WITH_RANGE(ext_flash_used_pct, kMemfaultMetricType_Unsigned, 0, 100)
+
+// BLE link and bonding health
+MEMFAULT_METRICS_KEY_DEFINE(ble_connect_count, kMemfaultMetricType_Unsigned)
+MEMFAULT_METRICS_KEY_DEFINE(ble_pairing_failures, kMemfaultMetricType_Unsigned)
+
+// Diagnostics Control Point transfer stats
+MEMFAULT_METRICS_KEY_DEFINE(diag_sync_count, kMemfaultMetricType_Unsigned)
+MEMFAULT_METRICS_KEY_DEFINE(diag_tx_bytes, kMemfaultMetricType_Unsigned)
+
+// Flash integrity: writes attempted on non-erased words (the double-write corner case)
+MEMFAULT_METRICS_KEY_DEFINE(flash_double_write_count, kMemfaultMetricType_Unsigned)
+
+// One "diag_sync" session per Memfault drain over the Diagnostics Control Point
+MEMFAULT_METRICS_SESSION_KEY_DEFINE(diag_sync)
+MEMFAULT_METRICS_KEY_DEFINE_WITH_SESSION(diag_sync_chunks, kMemfaultMetricType_Unsigned, diag_sync)
+MEMFAULT_METRICS_KEY_DEFINE_WITH_SESSION(diag_sync_bytes, kMemfaultMetricType_Unsigned, diag_sync)

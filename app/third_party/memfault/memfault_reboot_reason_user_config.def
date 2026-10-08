@@ -1,0 +1,6 @@
+// Custom reboot reasons: https://mflt.io/reboot-reasons
+
+// Unexpected: SoftDevice assert (NRF_FAULT_ID_SD_ASSERT) and SoftDevice memory access
+// violation (NRF_FAULT_ID_APP_MEMACC), reported via app_error_fault_handler()
+MEMFAULT_UNEXPECTED_REBOOT_REASON_DEFINE(SoftDeviceAssert)
+MEMFAULT_UNEXPECTED_REBOOT_REASON_DEFINE(SoftDeviceMemAccess)

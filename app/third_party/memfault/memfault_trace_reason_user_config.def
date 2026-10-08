@@ -1,0 +1,19 @@
+// Trace events (non-fatal errors): https://mflt.io/error-tracing
+
+// A flash write targeted a word that was not erased (0xFFFFFFFF), i.e. a double write
+MEMFAULT_TRACE_REASON_DEFINE(flash_double_write)
+
+// Peer Manager reported a failed security procedure (bond/key mismatch, pairing failure)
+MEMFAULT_TRACE_REASON_DEFINE(ble_conn_sec_failed)
+
+// (Simulated) sensor acquisition failed
+MEMFAULT_TRACE_REASON_DEFINE(sensor_acq_failed)
+
+// A SoftDevice API returned an unexpected error that the app recovered from
+MEMFAULT_TRACE_REASON_DEFINE(sd_api_error)
+
+// Buttonless DFU: entering the bootloader failed (status 0 = enter failed, 1 = response send error)
+MEMFAULT_TRACE_REASON_DEFINE(dfu_enter_failed)
+
+// Previous reset classified as a brownout. Status = last VDD (mV) seen before the reset
+MEMFAULT_TRACE_REASON_DEFINE(brownout_suspected)
